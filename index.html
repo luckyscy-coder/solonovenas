@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Solo Novenas – Libros de Novenas</title>
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Crimson+Pro:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --burgundy: #6b1a2a;
+      --dark-burgundy: #4a0f1c;
+      --gold: #c9a84c;
+      --gold-light: #e8d08a;
+      --cream: #f7f0e3;
+      --warm-white: #fdfaf4;
+      --text-dark: #2a1510;
+      --text-mid: #5a3a2a;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background-color: var(--warm-white);
+      color: var(--text-dark);
+      font-family: 'Crimson Pro', serif;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--dark-burgundy);
+      background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 50%, rgba(201,168,76,0.08) 0%, transparent 60%);
+      padding: 0;
+      text-align: center;
+      border-bottom: 3px solid var(--gold);
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a84c' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 1;
+    }
+
+    .header-inner {
+      position: relative;
+      z-index: 1;
+      padding: 2.5rem 1rem 2rem;
+    }
+
+    .header-ornament {
+      color: var(--gold);
+      font-size: 1.4rem;
+      letter-spacing: 0.3em;
+      margin-bottom: 0.6rem;
+      opacity: 0.8;
+    }
+
+    header h1 {
+      font-family: 'IM Fell English', serif;
+      font-size: clamp(2.2rem, 6vw, 3.8rem);
+      color: var(--cream);
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+    }
+
+    header h1 span {
+      color: var(--gold-light);
+    }
+
+    .header-subtitle {
+      font-family: 'Crimson Pro', serif;
+      font-style: italic;
+      color: var(--gold-light);
+      font-size: 1.15rem;
+      margin-top: 0.5rem;
+      opacity: 0.9;
+      letter-spacing: 0.06em;
+    }
+
+    .gold-rule {
+      width: 120px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 1rem auto 0;
+    }
+
+    /* ── Nav ── */
+    nav {
+      background: var(--burgundy);
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      border-bottom: 2px solid var(--gold);
+    }
+
+    nav a {
+      color: var(--cream);
+      text-decoration: none;
+      font-family: 'Crimson Pro', serif;
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.75rem 2rem;
+      transition: background 0.2s, color 0.2s;
+      border-right: 1px solid rgba(201,168,76,0.2);
+    }
+
+    nav a:last-child { border-right: none; }
+    nav a:hover, nav a.active {
+      background: var(--dark-burgundy);
+      color: var(--gold-light);
+    }
+
+    /* ── Category filter ── */
+    .category-bar {
+      background: var(--cream);
+      border-bottom: 1px solid rgba(107,26,42,0.15);
+      padding: 1rem;
+      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .cat-btn {
+      background: transparent;
+      border: 1.5px solid var(--burgundy);
+      color: var(--burgundy);
+      font-family: 'Crimson Pro', serif;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      padding: 0.35rem 1.1rem;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: all 0.2s;
+    }
+
+    .cat-btn:hover, .cat-btn.active {
+      background: var(--burgundy);
+      color: var(--cream);
+    }
+
+    /* ── Main content ── */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+
+    .section-title {
+      font-family: 'IM Fell English', serif;
+      font-size: 1.6rem;
+      color: var(--burgundy);
+      border-bottom: 1px solid var(--gold);
+      padding-bottom: 0.4rem;
+      margin: 2.5rem 0 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .section-title::before {
+      content: '✦';
+      color: var(--gold);
+      font-size: 1rem;
+    }
+
+    /* ── Book grid ── */
+    .book-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 1.8rem;
+    }
+
+    .book-card {
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+      cursor: pointer;
+    }
+
+    .book-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .book-card:hover .book-cover {
+      box-shadow: 0 12px 30px rgba(107,26,42,0.25);
+    }
+
+    .book-cover {
+      width: 100%;
+      aspect-ratio: 2/3;
+      object-fit: cover;
+      border-radius: 2px;
+      box-shadow: 3px 4px 14px rgba(0,0,0,0.18), -1px 0 0 rgba(0,0,0,0.08);
+      background: #d4c5b0;
+      transition: box-shadow 0.22s ease;
+      display: block;
+    }
+
+    /* Placeholder cover style */
+    .book-cover-placeholder {
+      width: 100%;
+      aspect-ratio: 2/3;
+      background: linear-gradient(160deg, var(--burgundy) 0%, var(--dark-burgundy) 100%);
+      border-radius: 2px;
+      box-shadow: 3px 4px 14px rgba(0,0,0,0.18);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 0.7rem;
+      text-align: center;
+      transition: box-shadow 0.22s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .book-cover-placeholder::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .book-cover-placeholder .cross {
+      color: var(--gold);
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+      opacity: 0.9;
+    }
+
+    .book-cover-placeholder .placeholder-title {
+      font-family: 'IM Fell English', serif;
+      color: var(--cream);
+      font-size: 0.85rem;
+      line-height: 1.3;
+    }
+
+    .book-info {
+      margin-top: 0.6rem;
+      padding: 0 0.1rem;
+    }
+
+    .book-title {
+      font-family: 'Crimson Pro', serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      line-height: 1.3;
+    }
+
+    .book-subtitle {
+      font-family: 'Crimson Pro', serif;
+      font-style: italic;
+      font-size: 0.82rem;
+      color: var(--text-mid);
+      margin-top: 0.15rem;
+    }
+
+    .amazon-tag {
+      display: inline-block;
+      margin-top: 0.4rem;
+      font-size: 0.75rem;
+      color: var(--burgundy);
+      border: 1px solid var(--gold);
+      padding: 0.1rem 0.5rem;
+      border-radius: 2px;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--dark-burgundy);
+      color: var(--gold-light);
+      text-align: center;
+      padding: 1.5rem 1rem;
+      font-family: 'Crimson Pro', serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.06em;
+      border-top: 2px solid var(--gold);
+    }
+
+    /* ── HOW TO EDIT notice ── */
+    .edit-notice {
+      background: #fff8e7;
+      border: 1.5px dashed var(--gold);
+      border-radius: 4px;
+      padding: 1rem 1.2rem;
+      margin-bottom: 2rem;
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      line-height: 1.6;
+    }
+
+    .edit-notice strong { color: var(--burgundy); }
+
+    @media (max-width: 600px) {
+      .book-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 1.2rem; }
+      nav a { padding: 0.65rem 1rem; font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-ornament">✦ ✦ ✦</div>
+    <h1>Solo <span>Novenas</span></h1>
+    <p class="header-subtitle">Libros de oración y devoción</p>
+    <div class="gold-rule"></div>
+  </div>
+</header>
+
+<nav>
+  <a href="index.html" class="active">Todas las Novenas</a>
+  <a href="#santos">Santos</a>
+  <a href="#virgen">Virgen María</a>
+  <a href="#jesus">Jesús</a>
+</nav>
+
+<div class="category-bar">
+  <button class="cat-btn active" onclick="filterBooks('all', this)">Todas</button>
+  <button class="cat-btn" onclick="filterBooks('santos', this)">Santos</button>
+  <button class="cat-btn" onclick="filterBooks('virgen', this)">Virgen María</button>
+  <button class="cat-btn" onclick="filterBooks('jesus', this)">Jesús</button>
+  <button class="cat-btn" onclick="filterBooks('difuntos', this)">Difuntos</button>
+  <button class="cat-btn" onclick="filterBooks('navidad', this)">Navidad</button>
+</div>
+
+<main>
+
+  <!-- EDIT NOTICE — remove this block once your site is live -->
+  <div class="edit-notice">
+    <strong>📘 Cómo agregar tus libros:</strong> Busca los comentarios <code>&lt;!-- LIBRO --&gt;</code> en el código HTML.
+    Reemplaza <code>TU-IMAGEN.jpg</code> con el nombre de la imagen de tu portada,
+    y reemplaza <code>TU-ENLACE-DE-AMAZON</code> con el link real de Amazon.
+    Cambia el título y la categoría según corresponda. ¡Elimina este aviso cuando termines!
+  </div>
+
+  <h2 class="section-title" id="santos">Santos</h2>
+  <div class="book-grid">
+
+    <!-- LIBRO -->
+    <a class="book-card" href="TU-ENLACE-DE-AMAZON-1" target="_blank" rel="noopener" data-category="santos">
+      <div class="book-cover-placeholder">
+        <div class="cross">✝</div>
+        <div class="placeholder-title">Novena a San José</div>
+      </div>
+      <div class="book-info">
+        <div class="book-title">Novena a San José</div>
+        <div class="book-subtitle">Patrón de la familia</div>
+        <span class="amazon-tag">Ver en Amazon →</span>
+      </div>
+    </a>
+
+    <!-- LIBRO -->
+    <a class="book-card" href="TU-ENLACE-DE-AMAZON-2" target="_blank" rel="noopener" data-category="santos">
+      <div class="book-cover-placeholder">
+        <div class="cross">✝</div>
+        <div class="placeholder-title">Novena a Santa Rita</div>
+      </div>
+      <div class="book-info">
+        <div class="book-title">Novena a Santa Rita</div>
+        <div class="book-subtitle">Patrona de los imposibles</div>
+        <span class="amazon-tag">Ver en Amazon →</span>
+      </div>
+    </a>
+
+    <!-- LIBRO -->
+    <a class="book-card" href="TU-ENLACE-DE-AMAZON-3" target="_blank" rel="noopener" data-category="santos">
+      <div class="book-cover-placeholder">
+        <div class="cross">✝</div>
+        <div class="placeholder-title">Novena a San Judas</div>
+      </div>
+      <div class="book-info">
+        <div class="book-title">Novena a San Judas Tadeo</div>
+        <div class="book-subtitle">Patrono de causas difíciles</div>
+        <span class="amazon-tag">Ver en Amazon →</span>
+      </div>
+    </a>
+
+  </div>
+
+  <h2 class="section-title" id="virgen">Virgen María</h2>
+  <div class="book-grid">
+
+    <!-- LIBRO -->
+    <a class="book-card" href="TU-ENLACE-DE-AMAZON-4" target="_blank" rel="noopener" data-category="virgen">
+      <div class="book-cover-placeholder">
+        <div class="cross">✝</div>
+        <div class="placeholder-title">Novena a la Virgen de Guadalupe</div>
+      </div>
+      <div class="book-info">
+        <div class="book-title">Novena a la Virgen de Guadalupe</div>
+        <div class="book-subtitle">Madre de las Américas</div>
+        <span class="amazon-tag">Ver en Amazon →</span>
+      </div>
+    </a>
+
+    <!-- LIBRO -->
+    <a class="book-card" href="TU-ENLACE-DE-AMAZON-5" target="_blank" rel="noopener" data-category="virgen">
+      <div class="book-cover-placeholder">
+        <div class="cross">✝</div>
+        <div class="placeholder-title">Novena a la Virgen del Carmen</div>
+      </div>
+      <div class="book-info">
+        <div class="book-title">Novena a la Virgen del Carmen</div>
+        <div class="book-subtitle">Patrona de los marineros</div>
+        <span class="amazon-tag">Ver en Amazon →</span>
+      </div>
+    </a>
+
+  </div>
+
+  <h2 class="section-title" id="jesus">Jesús</h2>
+  <div class="book-grid">
+
+    <!-- LIBRO -->
+    <a class="book-card" href="TU-ENLACE-DE-AMAZON-6" target="_blank" rel="noopener" data-category="jesus">
+      <div class="book-cover-placeholder">
+        <div class="cross">✝</div>
+        <div class="placeholder-title">Novena al Sagrado Corazón</div>
+      </div>
+      <div class="book-info">
+        <div class="book-title">Novena al Sagrado Corazón de Jesús</div>
+        <div class="book-subtitle">Devoción tradicional</div>
+        <span class="amazon-tag">Ver en Amazon →</span>
+      </div>
+    </a>
+
+  </div>
+
+</main>
+
+<footer>
+  © <span id="year"></span> SoloNovenas.com &nbsp;✦&nbsp; Todos los derechos reservados
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  function filterBooks(category, btn) {
+    // Update active button
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    // Show/hide cards
+    document.querySelectorAll('.book-card').forEach(card => {
+      if (category === 'all' || card.dataset.category === category) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
